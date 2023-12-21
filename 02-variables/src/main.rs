@@ -23,5 +23,12 @@ fn main() {
     let mut name: String = String::new();
     std::io::stdin().read_line(&mut name).unwrap();
     name = name.trim().to_string();
+
+    println!("Where your live?");
+    let mut country: String = String::new();
+    std::io::stdin().read_line(&mut country).unwrap();
+    country = country.trim().to_string();
+
     println!("Hey {}, what's going on?", name);
+    println!("{} is from {}", name, country);
 }
