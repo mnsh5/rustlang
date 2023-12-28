@@ -15,7 +15,7 @@ fn num_sum(nums: &Vec<i32>) -> i32 {
 }
 
 fn cats(cb: &Vec<&str>) {
-    for &breed in cb.iter() {
+    for &breed in cb {
         if breed == "Sphynx" {
             println!("{} is my favorite cat! 🐈", breed);
             continue;
