@@ -12,6 +12,7 @@ fn main() {
 
         if user_sum == suma {
             println!("Awesome... 🐎");
+            break;
         } else {
             println!("Oops... 🦧");
         }
