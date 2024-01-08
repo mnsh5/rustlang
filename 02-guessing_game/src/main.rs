@@ -12,31 +12,41 @@ fn main() {
     // 1..=100 para solicitar un número entre 1 y 100
     let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    println!("Please input your guess.");
+    //  loop crea un bucle infinito
+    loop {
+        println!("Please input your guess.");
 
-    // declaración let para crear la variable
-    // variable mutable guess
-    // String::new() función que devuelve una nueva instancia de un String
-    // La sintaxis :: en la línea ::new indica que new es una función asociada del tipo String
-    let mut guess = String::new(); // ha creado una variable mutable que está actualmente enlazada a una nueva instancia vacía de un String
+        // declaración let para crear la variable
+        // variable mutable guess
+        // String::new() función que devuelve una nueva instancia de un String
+        // La sintaxis :: en la línea ::new indica que new es una función asociada del tipo String
+        let mut guess = String::new(); // ha creado una variable mutable que está actualmente enlazada a una nueva instancia vacía de un String
 
-    // función stdin del módulo io, que nos permitirá manejar la entrada del usuario
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
+        // función stdin del módulo io, que nos permitirá manejar la entrada del usuario
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line");
 
-    println!("You guessed: {guess}");
+        println!("You guessed: {guess}");
 
-    // Comparando la adivinanza con el Número Secreto
+        // Comparando la adivinanza con el Número Secreto
 
-    // Shadowing de guess
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        // Shadowing de guess
+        // parse devuelve un tipo Result y Result es un enum que tiene las variantes Ok y Err
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
 
-    // El tipo Ordering es otro enum y tiene las variantes Less, Greater y Equal. Estos son los tres resultados posibles cuando compara dos valores
-    // El método cmp compara dos valores y se puede llamar en cualquier cosa que se pueda comparar
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You win!"),
+        // El tipo Ordering es otro enum y tiene las variantes Less, Greater y Equal. Estos son los tres resultados posibles cuando compara dos valores
+        // El método cmp compara dos valores y se puede llamar en cualquier cosa que se pueda comparar
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
     }
 }
